@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVP Tech Group</title>
+    <script src="https://kit.fontawesome.com/58b332059b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Welcome to AVP Tech Group</h2>
+                    <p>Your Partner in Technology Solutions</p>
+                </div>
+                <div class="hero-image">
+                    <img src="https://die-efi.de/images/die-efi/loesungen/thumbnails/it-support.jpg" alt="Hero Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-right">
+                <input type="text" id="search-bar" placeholder="Search..." class="search-bar">
+                <button class="dark-mode-toggle"><i class="fa-solid fa-moon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h3>About Us</h3>
+            <p>As the technology landscape continues to evolve at a rapid pace, businesses of all sizes rely on reliable and effective IT support and services to stay competitive. That’s where AVP Tech Group comes in.</p>
+            <p>We are a leading IT support and services company, committed to delivering exceptional technology solutions to meet the unique needs of our clients.</p>
+            <p>With a team of highly skilled and experienced technicians, we offer a comprehensive range of IT support and services, including technical support, network and infrastructure management, software development, and cybersecurity solutions. Our goal is to help businesses harness the power of technology to drive growth, increase efficiency, and stay ahead of the curve.</p>
+            <p>At AVP Tech Group, we understand that every business is different, which is why we take a personalized approach to each and every project. Our team will work closely with you to understand your technology needs, develop a tailored solution that meets your specific requirements, and provide ongoing support to ensure your systems are running smoothly.</p>
+            <p>We are passionate about technology and delivering the best possible outcomes for our clients. Whether you need help with a single project or ongoing IT support.</p>
+            <p>We focus on delivering high‐impact solutions that incorporate customized functionality specific to the project requirements.</p>
+            <p>AVP Tech Group was established in response to the growing market demand for high-quality Innovative solutions at affordable prices. Our commitment to refining the development process and creating a superior infrastructure has allowed us to introduce a range of packages and customized solutions that Enable businesses to implement high-value systems. With industry experience and an ongoing relationship with well-established companies.</p>
+            <p>AVP Tech Group is here to help. Contact us today to learn more about how we can help your business thrive.</p>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h3>Our Services</h3>
+            <ul class="service-list">
+                <li>Network and Data Security / IT Support & Services</li>
+                <li>Web site Designing / Cloud Technologies: Office 365</li>
+                <li>Laptop PC & Server Maintenance and Support</li>
+                <li>Managed Network Security / Business Class Firewall</li>
+                <li>IT Moves & Relocation / System Migration</li>
+                <li>Wi-Fi Design and Install – Campus & Guest Access</li>
+                <li>E-mail Security / Anti-spam / Anti-virus / IT Security</li>
+                <li>Network Site Assessments / Managed Backup Services</li>
+                <li>New Office IT Design Services / Project Management</li>
+                <li>Systems support , system administration</li>
+                <li>Utility Applications & Operating Systems (e.g. MS Exchange)</li>
+                <li>Hardware Infrastructure (e.g. Servers, Data Storage, Networking)</li>
+                <li>Systems / Network Management / Customer Specific Solutions</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h3>Contact Us</h3>
+            <ul class="contact-info">
+                <li> <i class="fa-solid fa-phone"></i> : +91 969-578-9998</li>
+                <li> <i class="fa-solid fa-envelope"></i> : info@avptechgroup.com</li>
+            </ul>
+            <form action="connect.php" method="POST">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="custname" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 AVP Tech Group. All rights reserved.</p>
+    </footer>
+
+    <script>
+       const toggleButton = document.querySelector('.dark-mode-toggle');
+toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    toggleButton.innerHTML = document.body.classList.contains('dark-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+});
+
+// Function to highlight search terms
+function highlightText(node, searchTerm) {
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    const span = document.createElement('span');
+    span.innerHTML = node.textContent.replace(regex, '<mark class="highlight">$1</mark>');
+    node.replaceWith(span);
+}
+
+function searchAndHighlight(searchTerm) {
+    const sections = document.querySelectorAll('section');
+    let firstMatch = null;
+    sections.forEach(section => {
+        section.querySelectorAll('*').forEach(element => {
+            element.childNodes.forEach(child => {
+                if (child.nodeType === Node.TEXT_NODE && child.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    highlightText(child, searchTerm);
+                    if (!firstMatch) {
+                        firstMatch = element;
+                    }
+                }
+            });
+        });
+    });
+    if (firstMatch) {
+        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+// Search bar functionality
+const searchBar = document.getElementById('search-bar');
+searchBar.addEventListener('input', function() {
+    // Remove existing highlights
+    document.querySelectorAll('mark.highlight').forEach(mark => {
+        const parent = mark.parentNode;
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+    });
+
+    const searchTerm = searchBar.value.toLowerCase();
+    if (searchTerm) {
+        searchAndHighlight(searchTerm);
+    }
+});
+
+    </script>
+</body>
+</html>
